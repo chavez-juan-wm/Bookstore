@@ -1,0 +1,99 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Bookstore</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">Add a Book</a>
+                </li>
+                <li>
+                    <a href="/signup">Signup</a>
+                </li>
+                <li>
+                    <a href="#">Login</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div>
+    <h1 style="text-align: center; color: #00b7bb; margin-top: 4%">Create Your Account</h1>
+    <hr/>
+    <div class="container">
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="http://www.freeiconspng.com/uploads/profile-icon-9.png"/>
+            <form class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <div style="width: 50%; float: left; padding-right: 2%">
+                    <input type="text" class="form-control" name="firstName" placeholder="First Name" required autofocus>
+                    <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
+                    <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                </div>
+
+                <div style="width: 50%; float: left">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control" id="confirm" name="confirmPassword"  placeholder="Re-Type Password" required>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block btn-signin">Sign Up</button>
+            </form>
+            <!-- /form -->
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+</div>
+
+<script>
+    //      Makes sure the password and confirm password are equal to each other
+    $(document).ready(function()
+    {
+        $("#confirm").on('change', function(){
+            if(document.getElementById("password").value != document.getElementById("confirm").value)
+            {
+                $("#confirm").css("border-color", "red");
+                $("#password").css("border-color", "gray");
+
+            }
+            else if(document.getElementById("password").value == document.getElementById("confirm").value)
+            {
+                $("#confirm").css("border-color", "green");
+                $("#password").css("border-color", "green");
+            }
+        });
+
+        $("#password").on('change', function(){
+            if(document.getElementById("password").value != document.getElementById("confirm").value)
+            {
+                $("#confirm").css("border-color", "red");
+                $("#password").css("border-color", "gray");
+
+            }
+            else if(document.getElementById("password").value == document.getElementById("confirm").value)
+            {
+                $("#confirm").css("border-color", "green");
+                $("#password").css("border-color", "green");
+            }
+        });
+
+        $("button").click(function (event)
+        {
+            if(document.getElementById("password").value != document.getElementById("confirm").value)
+            {
+                event.preventDefault();
+                document.getElementById("error").innerHTML = "<span style='color: orangered' id='error'>The passwords do not match.</span>"
+            }
+        });
+    });
+</script>
