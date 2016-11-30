@@ -1,28 +1,35 @@
 /**
- * User.js
+ * Book.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
+
   attributes: {
-    name: {
+    title: {
       type: 'text',
       required: true
     },
-    email: {
-      type: 'email',
+    author: {
+      type: 'text',
       required: true
     },
-    password: {
-      type: 'integer',
+    type: {
+      type: 'text',
       required: true
     },
-    admin: {
-      type: 'boolean',
-      defaultsTo: false,
+    publisher: {
+      type: 'text',
       required: true
+    },
+    publishedDate: {
+      type: 'date',
+      required: true
+    },
+    coverImage: {
+      type: ''
     }
   }
 };

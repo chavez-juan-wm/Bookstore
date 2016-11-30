@@ -36,10 +36,12 @@ module.exports.routes = {
     controller: 'main',
     action: 'index'
   },
-  '/signup':{
+  'post /user/signup':{
     controller: 'user',
-    action: 'index'
-  }
+    action: 'create'
+  },
+  'get /user/adminOnly': 'UserController.adminOnly',
+  'post /user/login': 'UserController.login'
 
   /***************************************************************************
   *                                                                          *
