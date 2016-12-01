@@ -29,7 +29,8 @@ module.exports = {
       required: true
     },
     coverImage: {
-      type: ''
+      type: 'text',
+      required: true
     }
   }
 };

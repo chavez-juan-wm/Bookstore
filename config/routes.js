@@ -32,16 +32,24 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/' : {
-    controller: 'main',
-    action: 'index'
+  '/*': function configurePassport(req, res, next) {
+    require('passport').initialize()(req,res,function(err){
+      if (err) return res.negotiate(err);
+      require('passport').session()(req,res, function (err){
+        if (err) return res.negotiate(err);
+        next();
+      });
+    });
   },
-  'post /user/signup':{
-    controller: 'user',
-    action: 'create'
-  },
+
+  '/' : { view: 'main/index'},
   'get /user/adminOnly': 'UserController.adminOnly',
-  'post /user/login': 'UserController.login'
+  'get /login': { view: 'user/login' },
+  'get /signup': { view: 'user/signup' },
+  '/welcome': { view: 'main/index' },
+  'post /login': 'UserController.login',
+  'post /signup': 'UserController.signup',
+  '/logout': 'UserController.logout'
 
   /***************************************************************************
   *                                                                          *

@@ -18,7 +18,7 @@ module.exports = {
                 return res.serverError(err);
             }
 
-            return res.ok("Deleted successfully");
+            return res.ok("User deleted successfully");
         });
     },
 
@@ -29,34 +29,6 @@ module.exports = {
             }
 
             return res.jsonx(users);
-        });
-    },
-
-    create: function (req, res) {
-        if (!req.body) {
-            return res.badRequest('No body data passed.');
-        }
-
-        var email = req.param("email");
-
-        User.findOne({"email": email}).exec(function(err, user) {
-            if (err) {
-                return res.badRequest('DB error.');
-            }
-            else {
-                if (user == undefined) {
-                    User.create(req.body).exec(function (err, user) {
-                        if (err) {
-                            return res.serverError(err);
-                        }
-
-                        return res.jsonx(user);
-                    });
-                }
-                else {
-                    return res.badRequest('That email has already been taken!');
-                }
-            }
         });
     },
 
@@ -80,28 +52,48 @@ module.exports = {
         });
     },
 
-    login: function(req, res){
+    signup: function (req, res) {
+        if (!req.body) {
+            return res.badRequest('No body data passed.');
+        }
+
         var email = req.param("email");
-        var password = req.param("password");
 
         User.findOne({"email": email}).exec(function(err, user) {
             if (err) {
                 return res.badRequest('DB error.');
-            } else {
-                if (user != undefined) {
-                    if (password == user.password) {
-                        req.session.authenticated = true;
-                        res.jsonx(user);
-                    }
-                    else {
-                        return res.badRequest('Wrong password.');
-                    }
+            }
+            else {
+                if (user == undefined) {
+                    User.create(req.params.all()).exec(function (err, user) {
+                        if (err) return res.negotiate(err);
+                        req.login(user, function (err){
+                            if (err) return res.negotiate(err);
+                            return res.redirect('/welcome');
+                        });
+                    });
                 }
                 else {
-                    return res.badRequest('User not found.');
+                    return res.badRequest('That email has already been taken!');
                 }
             }
         });
+    },
+
+    login: function(req, res){
+        //res.login({
+        //    successRedirect: '/',
+        //    failureRedirect: '/user/login'
+        //});
+
+        return res.login({
+            successRedirect: '/'
+        });
+    },
+
+    logout: function(req, res){
+        req.logout();
+        return res.ok('Logged out successfully.');
     }
 };
 
