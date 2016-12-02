@@ -42,7 +42,7 @@ module.exports.routes = {
     });
   },
 
-  '/' : { view: 'main/index'},
+  '/' : { view: 'index'},
   'get /user/adminOnly': 'UserController.adminOnly',
   'get /login': { view: 'user/login' },
   'get /signup': { view: 'user/signup' },

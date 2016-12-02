@@ -12,11 +12,11 @@ module.exports = {
       required: true
     },
     email: {
-      type: 'email',
+      type: 'text',
       required: true
     },
     password: {
-      type: 'integer',
+      type: 'text',
       required: true
     },
     admin: {

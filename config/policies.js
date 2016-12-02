@@ -50,7 +50,8 @@ module.exports.policies = {
 	// }
 
   UserController: {
-    'destroy': ['sessionAuth']
+    'destroy': ['sessionAuth'],
+    'update': ['sessionAuth']
   }
 
 };

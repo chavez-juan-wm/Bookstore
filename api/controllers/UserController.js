@@ -5,8 +5,12 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var passport = require('passport');
+
 module.exports = {
+
     destroy: function (req, res) {
+        req.logout();
         var id = req.param('id');
 
         if (!id) {
@@ -58,6 +62,10 @@ module.exports = {
         }
 
         var email = req.param("email");
+        var password = req.param("password");
+        var firstName = req.param("firstName");
+        var lastName = req.param("lastName");
+        var name = firstName + " " + lastName;
 
         User.findOne({"email": email}).exec(function(err, user) {
             if (err) {
@@ -65,35 +73,46 @@ module.exports = {
             }
             else {
                 if (user == undefined) {
-                    User.create(req.params.all()).exec(function (err, user) {
+                    var hasher = require("password-hash");
+                    password = hasher.generate(password);
+
+                    User.create({email: email, name: name, password: password}).exec(function (err, user) {
                         if (err) return res.negotiate(err);
                         req.login(user, function (err){
                             if (err) return res.negotiate(err);
-                            return res.redirect('/welcome');
+                            return res.redirect('/');
                         });
                     });
                 }
                 else {
-                    return res.badRequest('That email has already been taken!');
+                    return res.send(400, 'That email has already been taken!');
                 }
             }
         });
     },
 
-    login: function(req, res){
-        //res.login({
-        //    successRedirect: '/',
-        //    failureRedirect: '/user/login'
-        //});
+    login: function(req, res) {
 
-        return res.login({
-            successRedirect: '/'
-        });
+        passport.authenticate('local', function(err, user, info) {
+            if ((err) || (!user)) {
+                return res.send({
+                    message: info.message,
+                    user: user
+                });
+            }
+            req.logIn(user, function(err) {
+                if (err) res.send(err);
+                return res.send({
+                    message: info.message,
+                    user: user
+                });
+            });
+
+        })(req, res);
     },
 
-    logout: function(req, res){
+    logout: function(req, res) {
         req.logout();
-        return res.ok('Logged out successfully.');
+        res.redirect('/');
     }
 };
-

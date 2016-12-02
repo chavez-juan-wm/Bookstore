@@ -35,7 +35,8 @@
     <div class="container">
         <div class="card card-container">
             <img id="profile-img" class="profile-img-card" src="http://www.freeiconspng.com/uploads/profile-icon-9.png"/>
-            <form class="form-signin">
+            <span style="color: orangered" id="error"></span>
+            <form method="post" class="form-signin" action="/signup">
                 <span id="reauth-email" class="reauth-email"></span>
                 <div style="width: 50%; float: left; padding-right: 2%">
                     <input type="text" class="form-control" name="firstName" placeholder="First Name" required autofocus>
@@ -45,7 +46,7 @@
 
                 <div style="width: 50%; float: left">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                    <input type="password" class="form-control" id="confirm" name="confirmPassword"  placeholder="Re-Type Password" required>
+                    <input type="password" class="form-control" id="confirm" placeholder="Re-Type Password" required>
                 </div>
 
                 <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin">Sign Up</button>
