@@ -6,6 +6,8 @@
  */
 
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
+var secretKey = '12345-67890-09876-54321';
 
 module.exports = {
 
@@ -92,19 +94,25 @@ module.exports = {
     },
 
     login: function(req, res) {
+        req.logout();
 
-        passport.authenticate('local', function(err, user, info) {
+        passport.authenticate('local', function(err, user, info)
+        {
             if ((err) || (!user)) {
                 return res.send({
                     message: info.message,
                     user: user
                 });
             }
+
             req.logIn(user, function(err) {
                 if (err) res.send(err);
-                return res.send({
-                    message: info.message,
-                    user: user
+
+                var token = jwt.sign(user, secretKey, {expiresIn: 10000000});
+                res.status(200).json({
+                    status: 'Login successful',
+                    success: true,
+                    token: token
                 });
             });
 

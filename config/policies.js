@@ -50,8 +50,12 @@ module.exports.policies = {
 	// }
 
   UserController: {
-    'destroy': ['sessionAuth'],
-    'update': ['sessionAuth']
+    'adminOnly': ['Admin'],
+    'destroy': ['ordinaryUser'],
+    'update': ['ordinaryUser']
+  },
+  BookController: {
+    '*': ['Admin']
   }
 
 };
