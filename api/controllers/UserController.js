@@ -28,6 +28,7 @@ module.exports = {
         });
     },
 
+    //Test to see if the admin policy works
     adminOnly: function (req, res) {
         User.find({admin: true}).exec(function (err, users) {
             if (err) {

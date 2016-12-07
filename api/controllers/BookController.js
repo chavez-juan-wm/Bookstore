@@ -54,5 +54,14 @@ module.exports = {
 
             return res.jsonx(book);
         });
+    },
+    find: function (req, res) {
+        Book.find({}).exec(function (err, books) {
+            if (err) {
+                return res.serverError(err);
+            }
+
+            return res.jsonx(books);
+        });
     }
 };
