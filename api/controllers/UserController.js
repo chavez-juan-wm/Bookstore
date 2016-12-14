@@ -110,7 +110,7 @@ module.exports = {
                 if (err) res.send(err);
 
                 var token = jwt.sign(user, secretKey, {expiresIn: 10000000});
-                res.status(200).json({
+                return res.json({
                     status: 'Login successful',
                     success: true,
                     token: token

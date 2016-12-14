@@ -34,13 +34,39 @@
 <div class="container">
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="http://www.freeiconspng.com/uploads/profile-icon-9.png"/>
-        <form name="signIn" method = "post" class="form-signin">
+        <form name="signIn" class="form-signin">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" class="form-control" name="email" placeholder="Email address" required autofocus>
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="email" id="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+            <input type="password" id="loginPassword" class="form-control" name="password" placeholder="Password" required>
 
-            <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
+            <button onclick="login()" class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
         </form>
         <!-- /form -->
     </div><!-- /card-container -->
 </div><!-- /container -->
+
+<script>
+    function login(){
+        var email = $("#email").val();
+        var password = $("#loginPassword").val();
+
+//        $.ajax({
+//            type:"POST",
+//            url: "/login",
+//            data: json
+//        })
+//        .done(function(data){
+//            alert("Here");
+//            var arr = $.parseJSON(data);
+//            alert(arr);
+//        });
+
+        $.post(
+                '/login',
+                {email: email, password: password}
+        ).done(function(data){
+            alert("Here!!!");
+            console.log(data);
+        });
+    }
+</script>
