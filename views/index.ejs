@@ -38,26 +38,14 @@
             <h1 class="page-header">Recently Added</h1>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-            <a href="#">
-                <img class="img-responsive" src="http://covers.feedbooks.net/book/2846.jpg?size=large&t=1437345472" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-            <a href="#">
-                <img class="img-responsive" src="https://s-media-cache-ak0.pinimg.com/236x/2b/1e/67/2b1e678646fbca990b7a9302c95ec9ee.jpg" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-            <a href="#">
-                <img class="img-responsive" src="https://images-na.ssl-images-amazon.com/images/I/51gnNy1uoSL.jpg" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-            <a href="#">
-                <img class="img-responsive" src="http://www.survivingateacherssalary.com/wp-content/uploads/2012/09/clifford-halloween-book.jpg" alt="">
-            </a>
-        </div>
+        <% _.each(books, function (book) { %>
+            <div class="col-lg-3 col-md-3 col-xs-6 thumb">
+                <a href="#">
+                    <img class="img-responsive" src="<%= book.coverImage %>" alt="">
+                </a>
+            </div>
+
+        <% });%>
     </div>
 
     <hr>

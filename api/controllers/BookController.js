@@ -55,13 +55,14 @@ module.exports = {
             return res.jsonx(book);
         });
     },
+
     find: function (req, res) {
-        Book.find({}).exec(function (err, books) {
+        Book.find({}).sort({createdAt: -1}).limit(4).exec(function (err, books) {
             if (err) {
                 return res.serverError(err);
             }
 
-            return res.jsonx(books);
+            res.view('index', {books: books});
         });
     }
 };

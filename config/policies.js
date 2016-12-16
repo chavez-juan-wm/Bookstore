@@ -53,9 +53,5 @@ module.exports.policies = {
     'adminOnly': ['Admin'],
     'destroy': ['ordinaryUser'],
     'update': ['ordinaryUser']
-  },
-  BookController: {
-    '*': ['Admin']
   }
-
 };
